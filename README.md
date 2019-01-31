@@ -6,7 +6,7 @@ Contents
 
 #### Week 1
 \- 1-karatsuba.py - implementation of Karatsuba multiplication  
-
+* I was a bit disappointed that I had to use string functions because I couldn't get the math functions to work out - something to revisit again  
 #### Week 2
 \- 2-merge_sort.py - I figured best to implement this before attempting the problem set  
 \- 2-count_inversions.py - counts the number of inversions (larger numbers appearing before smaller numbers) in a large array  

@@ -4,8 +4,6 @@
 def merge_sort(input_list):
     results = []
     if len(input_list) <= 1:
-        # results.extend(list)
-        # return results
         return input_list
     else:
         n = len(input_list)
