@@ -9,8 +9,6 @@ I. Introduction
 * we'll assess the mulitplication algorithm on the basis of the basic number of operations it performs
 * can we do better?
 
-### Video: Karatsuba Multiplication
-
 ### Video: Merge Sort: Motivation and Example  
 Why study this algorithm?  
 * perhaps the most transparent application of the Divide-and-Conquer paradigm  
@@ -83,7 +81,7 @@ II. Asymptotic Analysis
    * n0 defines "sufficiently large"  
    * constants are independent of n
 * Omega: T(n) >= c*f(n) for all n >= n0
-* Theta: T(n) = 𝛳(f(n)) if and only if T(n) = O(f(n)) and T(n) = 𝛺(f(n))
+* Theta: T(n) = Θ(f(n)) if and only if T(n) = O(f(n)) and T(n) = Ω(f(n))
 * little-oh: "<" rather than "<="; harder to show b/c must be true for all c > 0
 * little-omega: ">" rather than ">="
 
@@ -172,16 +170,63 @@ dimension half as much as what you started with, and then do quadratic time outs
    * sorting is a primitive  
 * Step 2: use Divide and Conquer
 
-IV. The Master Method
----------------------
+IV. The Master Method  
+---------------------  
+     
+### Video: Motivation
+
+#### A Recursive Algorithm  
+Algorithm 1: Recursively compute ac, ad, bc, bd (for multiplication)
+*  T(n) = maximum number of operations this algorithm needs to multply two n-digit numbers  
+*  **Recurrence**: express T(n) in terms of running time of recursive calls  
+*  **Base Case**: T(1) <= a constant  
+*  **For all n>1**: T(n) <= 4T(n/2) + O(n)
+   * (n/2) is work done by recursion  
+   * O(n) is work done here  
+#### A Better Recursive Algorithm  
+Algorithm 2: Recursively compute ac, bd, (a+b)(c+d)  
+* **Base Case**: T(1) <= a constant  
+* **For all n>1**: T(n) <= 3T(n/2) + O(n)
+
+### Video: The Precise Statement  
+
+#### Recurrence Format  
+1. **Base Case**: T(n) <= a constant
+2. **For all larger n**: T(n) <= aT(n/b) + O(n^d) where:
+   * a = number of recursive calls  
+   * b = input size shrinkage factor  
+   * d = exponent in running time  
+   * \[a,b,d **independent** of n\]
+
+#### The Master Method
+T(n) = O(n^d log n)         if a = b^d (base only changes leading constants)  
+T(n) = O(n^d)               if a < b^d  
+T(n) = O(n^log base b of a) if a > b^d (base matters)  
+  
+a = rate of subproblem proliferation (RSP)  
+b^d = rate of work shrinkage (RWS) (per subproblem)  
+
+### Video: Proof I
+For Merge Sort, for each level j = 0,1,2,...,log n, there are **a^j** subproblems each of size **n/b^j**
+
+### Video: Interpretation of the 3 Cases
+1. RSP = RWS => same amount of work at each level, like Merge Sort; expect O(n log n)  
+2. RSP < RWS => less work at each level, most at root; expect O(n^d)  
+3. RSP > RWS => more work at each level, most work at leaves; expect O(# leaves) or O(n^log base b of a)  
 
 V. Quicksort - Algorithm
 ------------------------
+
+### Video: Partitioning Around a Pivot
+Key video for the algorithm; pseudocode  
 
 ### Video: Choosing a Good Pivot
 * choosing the first element of an already sorted list results in 𝛳(n^2) running time (bad)
    * why? `>= n + (n - 1) + (n - 2) + ... + 1`  means first n/2 terms are all at least n/2
 * choosing the median element results in 𝛳(n log n) running time (ideal)
+   * T(n) <= 2T(n/2) + O(n)  
+      * 2T because pivot = median  
+      * O(n) due to the choosePivot partition  
    * (1) even a 25-75% split will achieve this
    * (2) we don't even have to be very lucky to get that kind of split (50% probability)
   
@@ -195,7 +240,87 @@ VI. Quicksort - Analysis
 ### Video: Analysis I: A Decomposition Principle
 **indicator variables** take on values of 0 or 1 to indicate whether a particular event happened (Xij in this case)  
 
+VII. Probability Review
+-----------------------
 
-### Video: Analysis II: The Key Insight
+1. Sample Spaces  
+2. Events  
+3. Random Variables  
+4. Expectation  
+5. Linearity of Expectation  
+6. Conditional Probability  
+   * Pr\[X|Y\] = Pr\[X ∩ Y\]/Pr\[Y\]  
+7. Independence (of Events)  
+   * X,Y ⊆ Ω are independent iff Pr\[X ∩ Y\] = Pr\[X\] ⋅ Pr\[Y\]  
+   * WARNING: intuition is often incorrect  
+7. Independence (of Random Variables)  
+   * see example in lecture notes
 
-### Video: Analysis III: Final Calculations
+VIII. Linear-Time Selection
+---------------------------
+
+### Video: Randomized Selection - Algorithm  
+Key video for the algorithm; pseudocode  
+
+#### The Problem
+**Input**: array A with n distinct numbers  
+**Output**: ith order statistic  
+**Example**: median  
+* i = (n+1)/2 for n odd  
+* i = n/2 for n even  
+
+#### Solution
+* using Merge Sort before returning the ith element results in O(n log n) running time  
+* instead, partition around pivot and recurse on only one part of the partition  
+* with worst pivot choice each recursion, running time O(n^2)  
+* with best pivot choice (balanced split), running time O(n)!
+   * this is the average over random pivot choices  
+
+### Video: Deterministic Selection - Algorithm \[Advanced - Optional\]  
+ChoosePivot(A,n)  
+* logically break A into n/5 groups of size 5 each  
+* sort each group (e.g., using Merge Sort)  
+* copy n/5 medians (i.e., middle element of each sorted group) into new array C  
+* recursively compute median of C (!)  
+* return this as pivot  
+
+### Video: Omega(n log n) Lower Bound for Comparision-Based Sorting \[Advanced - Optional\]  
+
+#### A Sorting Lower Bound
+* **Theorem**: every “comparison-based” sorting algorithm has worst-case running time Ω(n log n)  
+* **Examples**: Merge Sort, Quick Sort, Heap Sort  
+* **Non-examples**: Bucket Sort, Counting Sort, Radix Sort  
+
+IX. Graphs and the Contraction Algorithm
+----------------------------------------
+
+### Video: Graphs and Minimum Cuts  
+
+Graphs  
+* Vertices, V (or nodes)  
+* Edges, E = pairs of vertices
+   * can be undirected (unordered)  
+   * directed (ordered pair) (aka arcs)  
+   * can be weighted (application: graph of pixels)  
+* Cuts partition graphs into two non-empty sets A and B  
+   * undirected: one endpoint in each of (A, B)  
+   * directed: tail in A, head in B  
+* parallel edges allowed  
+
+### Video: Graph Representations
+* n = # vertices, m = # edges  
+* m is usually Ω(n) and O(n^2)  
+   * in a sparse graph, m is or is close to O(n)  
+   * in a dense graph, m is closer to Θ(n^2)  
+* **Adjacency matrix**  
+* **Adjacency lists** (used in this course)  
+
+### Video: Random Contraction Algorithm
+Key video for the algorithm  
+   
+### Video: Counting Minimum Cuts
+Largest number of min cuts for a graph with n vertices: (n 2) = n(n-1)/2  
+* example: n-cycle has (n 2) min cuts  
+* example: a tree with n vertices has (n-1) min cuts  
+
+
