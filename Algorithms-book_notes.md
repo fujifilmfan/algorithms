@@ -23,4 +23,4 @@ Here are some commonsense rules that help simplify functions by omitting dominat
 3. Any exponential dominates any polynomial: 3^n dominates n^5 (it even dominates 2^n).
 4. Likewise, any polynomial dominates any logarithm: n dominates (log n)^3 . This also means, for example, that n^2 dominates n log n.
 
-O(1) < O(log n) < O( Sqrt(n) ) < O(n) < O(n log n) < O(n^2) < O(n^3) < O(2^n)
+O(1) == O(n^0) < O(log n) < O( Sqrt(n) ) < O(n) < O(n log n) < O(n^2) < O(n^3) < O(2^n)

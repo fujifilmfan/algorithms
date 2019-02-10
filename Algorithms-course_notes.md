@@ -188,3 +188,14 @@ V. Quicksort - Algorithm
 Quick Sort Theorem: for every input array of length n, the **average** running time of Quick Sort with random pivots is O(n log n)
 * holds for every input  
 * "average" depends on random choices made by the algorithm  
+
+VI. Quicksort - Analysis
+------------------------
+
+### Video: Analysis I: A Decomposition Principle
+**indicator variables** take on values of 0 or 1 to indicate whether a particular event happened (Xij in this case)  
+
+
+### Video: Analysis II: The Key Insight
+
+### Video: Analysis III: Final Calculations
