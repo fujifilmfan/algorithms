@@ -322,5 +322,3 @@ Key video for the algorithm
 Largest number of min cuts for a graph with n vertices: (n 2) = n(n-1)/2  
 * example: n-cycle has (n 2) min cuts  
 * example: a tree with n vertices has (n-1) min cuts  
-
-

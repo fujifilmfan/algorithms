@@ -35,6 +35,7 @@ def quick_sort(input_list):
         input_list = left + [swap2] + right
         return input_list
 
+
 def read_file(filename):
     file_contents = []
     with open(filename) as input_file:
