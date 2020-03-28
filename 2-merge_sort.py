@@ -13,7 +13,7 @@ def merge_sort(input_list):
         # Make recursive calls if a list has more than one element
         n = len(input_list)
         # Divide the list in half, rounding down ("//" is the floored division operator); an odd list will be divided
-        # such that the left half if the smaller of the two, like this: [5, 3, 8, 9, 1] -> [5, 3] and [8, 9, 1]
+        # such that the left half is the smaller of the two, like this: [5, 3, 8, 9, 1] -> [5, 3] and [8, 9, 1]
         mid = len(input_list) // 2
         left = merge_sort(input_list[:mid])
         right = merge_sort(input_list[mid:])
